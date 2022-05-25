@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FastFoodAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ChiTietDonDat">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDDonDat" Type="Int32" />
+    <Property Name="IDSP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="soLuong" Type="Int32" />
+    <Property Name="donGia" Type="Int32" />
+    <NavigationProperty Name="DonDatHang" Relationship="Self.FK_IDdondat" FromRole="ChiTietDonDat" ToRole="DonDatHang" />
+    <NavigationProperty Name="SanPham" Relationship="Self.fk_idspdat" FromRole="ChiTietDonDat" ToRole="SanPham" />
+  </EntityType>
+  <EntityType Name="ChiTietDonHang">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDDonHang" Type="Int32" />
+    <Property Name="IDSP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="soLuong" Type="Int32" />
+    <Property Name="donGia" Type="Int32" />
+    <NavigationProperty Name="SanPham" Relationship="Self.fk_spid" FromRole="ChiTietDonHang" ToRole="SanPham" />
+    <NavigationProperty Name="DonHang" Relationship="Self.fl_iddh" FromRole="ChiTietDonHang" ToRole="DonHang" />
+  </EntityType>
+  <EntityType Name="DanhMuc">
+    <Key>
+      <PropertyRef Name="IDDanhMuc" />
+    </Key>
+    <Property Name="IDDanhMuc" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TenDanhMuc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ImgUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="moTa" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SanPham" Relationship="Self.FK_IDDM" FromRole="DanhMuc" ToRole="SanPham" />
+  </EntityType>
+  <EntityType Name="DonDatHang">
+    <Key>
+      <PropertyRef Name="IDDonDat" />
+    </Key>
+    <Property Name="IDDonDat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDShop" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="TinhTrang" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Phiship" Type="Int32" />
+    <Property Name="TongTien" Type="Int32" />
+    <NavigationProperty Name="ChiTietDonDat" Relationship="Self.FK_IDdondat" FromRole="DonDatHang" ToRole="ChiTietDonDat" />
+    <NavigationProperty Name="SHOP" Relationship="Self.FK_idshop" FromRole="DonDatHang" ToRole="SHOP" />
+  </EntityType>
+  <EntityType Name="DonHang">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IDND" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="TinhTrang" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Phiship" Type="Int32" />
+    <Property Name="TongTien" Type="Int32" />
+    <NavigationProperty Name="ChiTietDonHang" Relationship="Self.fl_iddh" FromRole="DonHang" ToRole="ChiTietDonHang" />
+    <NavigationProperty Name="NguoiDung" Relationship="Self.FK_idnd" FromRole="DonHang" ToRole="NguoiDung" />
+  </EntityType>
+  <EntityType Name="GioHang">
+    <Key>
+      <PropertyRef Name="IDGH" />
+    </Key>
+    <Property Name="IDGH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="IDSP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="SoLuong" Type="Int32" />
+    <NavigationProperty Name="NguoiDung" Relationship="Self.FK_id" FromRole="GioHang" ToRole="NguoiDung" />
+    <NavigationProperty Name="SanPham" Relationship="Self.FK_idsp" FromRole="GioHang" ToRole="SanPham" />
+  </EntityType>
+  <EntityType Name="NguoiDung">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SDT" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="matKhau" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ImgUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IDShop" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DonHang" Relationship="Self.FK_idnd" FromRole="NguoiDung" ToRole="DonHang" />
+    <NavigationProperty Name="GioHang" Relationship="Self.FK_id" FromRole="NguoiDung" ToRole="GioHang" />
+    <NavigationProperty Name="SHOP" Relationship="Self.FK_IDSH" FromRole="NguoiDung" ToRole="SHOP" />
+  </EntityType>
+  <EntityType Name="SanPham">
+    <Key>
+      <PropertyRef Name="IDSP" />
+    </Key>
+    <Property Name="IDSP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TenSP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IDDanhMuc" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="IDShop" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="DanhGia" Type="Int32" />
+    <Property Name="Gia" Type="Int32" />
+    <Property Name="soLuong" Type="Int32" />
+    <Property Name="ImgUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ChiTietDonDat" Relationship="Self.fk_idspdat" FromRole="SanPham" ToRole="ChiTietDonDat" />
+    <NavigationProperty Name="ChiTietDonHang" Relationship="Self.fk_spid" FromRole="SanPham" ToRole="ChiTietDonHang" />
+    <NavigationProperty Name="DanhMuc" Relationship="Self.FK_IDDM" FromRole="SanPham" ToRole="DanhMuc" />
+    <NavigationProperty Name="GioHang" Relationship="Self.FK_idsp" FromRole="SanPham" ToRole="GioHang" />
+    <NavigationProperty Name="SHOP" Relationship="Self.FK_idspshop" FromRole="SanPham" ToRole="SHOP" />
+  </EntityType>
+  <EntityType Name="SHOP">
+    <Key>
+      <PropertyRef Name="IDShop" />
+    </Key>
+    <Property Name="IDShop" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tenShop" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ImgUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="DonDatHang" Relationship="Self.FK_idshop" FromRole="SHOP" ToRole="DonDatHang" />
+    <NavigationProperty Name="NguoiDung" Relationship="Self.FK_IDSH" FromRole="SHOP" ToRole="NguoiDung" />
+    <NavigationProperty Name="SanPham" Relationship="Self.FK_idspshop" FromRole="SHOP" ToRole="SanPham" />
+  </EntityType>
+  <Association Name="FK_IDdondat">
+    <End Role="DonDatHang" Type="Self.DonDatHang" Multiplicity="0..1" />
+    <End Role="ChiTietDonDat" Type="Self.ChiTietDonDat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DonDatHang">
+        <PropertyRef Name="IDDonDat" />
+      </Principal>
+      <Dependent Role="ChiTietDonDat">
+        <PropertyRef Name="IDDonDat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_idspdat">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
+    <End Role="ChiTietDonDat" Type="Self.ChiTietDonDat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="IDSP" />
+      </Principal>
+      <Dependent Role="ChiTietDonDat">
+        <PropertyRef Name="IDSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_spid">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
+    <End Role="ChiTietDonHang" Type="Self.ChiTietDonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="IDSP" />
+      </Principal>
+      <Dependent Role="ChiTietDonHang">
+        <PropertyRef Name="IDSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fl_iddh">
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
+    <End Role="ChiTietDonHang" Type="Self.ChiTietDonHang" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DonHang">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ChiTietDonHang">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IDDM">
+    <End Role="DanhMuc" Type="Self.DanhMuc" Multiplicity="0..1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DanhMuc">
+        <PropertyRef Name="IDDanhMuc" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="IDDanhMuc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_idshop">
+    <End Role="SHOP" Type="Self.SHOP" Multiplicity="0..1" />
+    <End Role="DonDatHang" Type="Self.DonDatHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SHOP">
+        <PropertyRef Name="IDShop" />
+      </Principal>
+      <Dependent Role="DonDatHang">
+        <PropertyRef Name="IDShop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_idnd">
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NguoiDung">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DonHang">
+        <PropertyRef Name="IDND" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_id">
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+    <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NguoiDung">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="GioHang">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_idsp">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
+    <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="IDSP" />
+      </Principal>
+      <Dependent Role="GioHang">
+        <PropertyRef Name="IDSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IDSH">
+    <End Role="SHOP" Type="Self.SHOP" Multiplicity="0..1" />
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SHOP">
+        <PropertyRef Name="IDShop" />
+      </Principal>
+      <Dependent Role="NguoiDung">
+        <PropertyRef Name="IDShop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_idspshop">
+    <End Role="SHOP" Type="Self.SHOP" Multiplicity="0..1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SHOP">
+        <PropertyRef Name="IDShop" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="IDShop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FastFoodAppEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ChiTietDonDat" EntityType="Self.ChiTietDonDat" />
+    <EntitySet Name="ChiTietDonHang" EntityType="Self.ChiTietDonHang" />
+    <EntitySet Name="DanhMuc" EntityType="Self.DanhMuc" />
+    <EntitySet Name="DonDatHang" EntityType="Self.DonDatHang" />
+    <EntitySet Name="DonHang" EntityType="Self.DonHang" />
+    <EntitySet Name="GioHang" EntityType="Self.GioHang" />
+    <EntitySet Name="NguoiDung" EntityType="Self.NguoiDung" />
+    <EntitySet Name="SanPham" EntityType="Self.SanPham" />
+    <EntitySet Name="SHOP" EntityType="Self.SHOP" />
+    <AssociationSet Name="FK_IDdondat" Association="Self.FK_IDdondat">
+      <End Role="DonDatHang" EntitySet="DonDatHang" />
+      <End Role="ChiTietDonDat" EntitySet="ChiTietDonDat" />
+    </AssociationSet>
+    <AssociationSet Name="fk_idspdat" Association="Self.fk_idspdat">
+      <End Role="SanPham" EntitySet="SanPham" />
+      <End Role="ChiTietDonDat" EntitySet="ChiTietDonDat" />
+    </AssociationSet>
+    <AssociationSet Name="fk_spid" Association="Self.fk_spid">
+      <End Role="SanPham" EntitySet="SanPham" />
+      <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
+    </AssociationSet>
+    <AssociationSet Name="fl_iddh" Association="Self.fl_iddh">
+      <End Role="DonHang" EntitySet="DonHang" />
+      <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IDDM" Association="Self.FK_IDDM">
+      <End Role="DanhMuc" EntitySet="DanhMuc" />
+      <End Role="SanPham" EntitySet="SanPham" />
+    </AssociationSet>
+    <AssociationSet Name="FK_idshop" Association="Self.FK_idshop">
+      <End Role="SHOP" EntitySet="SHOP" />
+      <End Role="DonDatHang" EntitySet="DonDatHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK_idnd" Association="Self.FK_idnd">
+      <End Role="NguoiDung" EntitySet="NguoiDung" />
+      <End Role="DonHang" EntitySet="DonHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK_id" Association="Self.FK_id">
+      <End Role="NguoiDung" EntitySet="NguoiDung" />
+      <End Role="GioHang" EntitySet="GioHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK_idsp" Association="Self.FK_idsp">
+      <End Role="SanPham" EntitySet="SanPham" />
+      <End Role="GioHang" EntitySet="GioHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IDSH" Association="Self.FK_IDSH">
+      <End Role="SHOP" EntitySet="SHOP" />
+      <End Role="NguoiDung" EntitySet="NguoiDung" />
+    </AssociationSet>
+    <AssociationSet Name="FK_idspshop" Association="Self.FK_idspshop">
+      <End Role="SHOP" EntitySet="SHOP" />
+      <End Role="SanPham" EntitySet="SanPham" />
+    </AssociationSet>
+    <FunctionImport Name="addDanhMuc">
+      <Parameter Name="ten" Mode="In" Type="String" />
+      <Parameter Name="img" Mode="In" Type="String" />
+      <Parameter Name="moTa" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddNguoiDung">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="hoTen" Mode="In" Type="String" />
+      <Parameter Name="sdt" Mode="In" Type="String" />
+      <Parameter Name="pass" Mode="In" Type="String" />
+      <Parameter Name="diachi" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddShop">
+      <Parameter Name="ten" Mode="In" Type="String" />
+      <Parameter Name="diachi" Mode="In" Type="String" />
+      <Parameter Name="img" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="addShopforUser">
+      <Parameter Name="idND" Mode="In" Type="String" />
+      <Parameter Name="idshop" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="updateImgNguoiDung">
+      <Parameter Name="id" Mode="In" Type="String" />
+      <Parameter Name="img" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="updateImgSHOP">
+      <Parameter Name="id" Mode="In" Type="String" />
+      <Parameter Name="img" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

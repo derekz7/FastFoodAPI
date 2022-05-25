@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FastFoodAppModelStoreContainer" CdmEntityContainer="FastFoodAppEntities">
+    <EntitySetMapping Name="ChiTietDonDat">
+      <EntityTypeMapping TypeName="FastFoodAppModel.ChiTietDonDat">
+        <MappingFragment StoreEntitySet="ChiTietDonDat">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="IDDonDat" ColumnName="IDDonDat" />
+          <ScalarProperty Name="IDSP" ColumnName="IDSP" />
+          <ScalarProperty Name="soLuong" ColumnName="soLuong" />
+          <ScalarProperty Name="donGia" ColumnName="donGia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChiTietDonHang">
+      <EntityTypeMapping TypeName="FastFoodAppModel.ChiTietDonHang">
+        <MappingFragment StoreEntitySet="ChiTietDonHang">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="IDDonHang" ColumnName="IDDonHang" />
+          <ScalarProperty Name="IDSP" ColumnName="IDSP" />
+          <ScalarProperty Name="soLuong" ColumnName="soLuong" />
+          <ScalarProperty Name="donGia" ColumnName="donGia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DanhMuc">
+      <EntityTypeMapping TypeName="FastFoodAppModel.DanhMuc">
+        <MappingFragment StoreEntitySet="DanhMuc">
+          <ScalarProperty Name="IDDanhMuc" ColumnName="IDDanhMuc" />
+          <ScalarProperty Name="TenDanhMuc" ColumnName="TenDanhMuc" />
+          <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+          <ScalarProperty Name="moTa" ColumnName="moTa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DonDatHang">
+      <EntityTypeMapping TypeName="FastFoodAppModel.DonDatHang">
+        <MappingFragment StoreEntitySet="DonDatHang">
+          <ScalarProperty Name="IDDonDat" ColumnName="IDDonDat" />
+          <ScalarProperty Name="IDShop" ColumnName="IDShop" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="Phiship" ColumnName="Phiship" />
+          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DonHang">
+      <EntityTypeMapping TypeName="FastFoodAppModel.DonHang">
+        <MappingFragment StoreEntitySet="DonHang">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="IDND" ColumnName="IDND" />
+          <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+          <ScalarProperty Name="Phiship" ColumnName="Phiship" />
+          <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GioHang">
+      <EntityTypeMapping TypeName="FastFoodAppModel.GioHang">
+        <MappingFragment StoreEntitySet="GioHang">
+          <ScalarProperty Name="IDGH" ColumnName="IDGH" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="IDSP" ColumnName="IDSP" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NguoiDung">
+      <EntityTypeMapping TypeName="FastFoodAppModel.NguoiDung">
+        <MappingFragment StoreEntitySet="NguoiDung">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="matKhau" ColumnName="matKhau" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+          <ScalarProperty Name="IDShop" ColumnName="IDShop" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SanPham">
+      <EntityTypeMapping TypeName="FastFoodAppModel.SanPham">
+        <MappingFragment StoreEntitySet="SanPham">
+          <ScalarProperty Name="IDSP" ColumnName="IDSP" />
+          <ScalarProperty Name="TenSP" ColumnName="TenSP" />
+          <ScalarProperty Name="IDDanhMuc" ColumnName="IDDanhMuc" />
+          <ScalarProperty Name="IDShop" ColumnName="IDShop" />
+          <ScalarProperty Name="DanhGia" ColumnName="DanhGia" />
+          <ScalarProperty Name="Gia" ColumnName="Gia" />
+          <ScalarProperty Name="soLuong" ColumnName="soLuong" />
+          <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SHOP">
+      <EntityTypeMapping TypeName="FastFoodAppModel.SHOP">
+        <MappingFragment StoreEntitySet="SHOP">
+          <ScalarProperty Name="IDShop" ColumnName="IDShop" />
+          <ScalarProperty Name="tenShop" ColumnName="tenShop" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="addDanhMuc" FunctionName="FastFoodAppModel.Store.addDanhMuc" />
+    <FunctionImportMapping FunctionImportName="AddNguoiDung" FunctionName="FastFoodAppModel.Store.AddNguoiDung" />
+    <FunctionImportMapping FunctionImportName="AddShop" FunctionName="FastFoodAppModel.Store.AddShop" />
+    <FunctionImportMapping FunctionImportName="addShopforUser" FunctionName="FastFoodAppModel.Store.addShopforUser" />
+    <FunctionImportMapping FunctionImportName="updateImgNguoiDung" FunctionName="FastFoodAppModel.Store.updateImgNguoiDung" />
+    <FunctionImportMapping FunctionImportName="updateImgSHOP" FunctionName="FastFoodAppModel.Store.updateImgSHOP" />
+  </EntityContainerMapping>
+</Mapping>

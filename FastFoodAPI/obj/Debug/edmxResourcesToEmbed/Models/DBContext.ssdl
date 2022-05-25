@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FastFoodAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ChiTietDonDat">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDDonDat" Type="int" />
+    <Property Name="IDSP" Type="varchar" MaxLength="10" />
+    <Property Name="soLuong" Type="int" />
+    <Property Name="donGia" Type="int" />
+  </EntityType>
+  <EntityType Name="ChiTietDonHang">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDDonHang" Type="int" />
+    <Property Name="IDSP" Type="varchar" MaxLength="10" />
+    <Property Name="soLuong" Type="int" />
+    <Property Name="donGia" Type="int" />
+  </EntityType>
+  <EntityType Name="DanhMuc">
+    <Key>
+      <PropertyRef Name="IDDanhMuc" />
+    </Key>
+    <Property Name="IDDanhMuc" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="TenDanhMuc" Type="nvarchar" MaxLength="100" />
+    <Property Name="ImgUrl" Type="text" />
+    <Property Name="moTa" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="DonDatHang">
+    <Key>
+      <PropertyRef Name="IDDonDat" />
+    </Key>
+    <Property Name="IDDonDat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDShop" Type="varchar" MaxLength="10" />
+    <Property Name="TinhTrang" Type="nvarchar" MaxLength="100" />
+    <Property Name="Phiship" Type="int" />
+    <Property Name="TongTien" Type="int" />
+  </EntityType>
+  <EntityType Name="DonHang">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IDND" Type="varchar" MaxLength="10" />
+    <Property Name="TinhTrang" Type="nvarchar" MaxLength="200" />
+    <Property Name="Phiship" Type="int" />
+    <Property Name="TongTien" Type="int" />
+  </EntityType>
+  <EntityType Name="GioHang">
+    <Key>
+      <PropertyRef Name="IDGH" />
+    </Key>
+    <Property Name="IDGH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID" Type="varchar" MaxLength="10" />
+    <Property Name="IDSP" Type="varchar" MaxLength="10" />
+    <Property Name="SoLuong" Type="int" />
+  </EntityType>
+  <EntityType Name="NguoiDung">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="HoTen" Type="nvarchar" MaxLength="100" />
+    <Property Name="SDT" Type="char" MaxLength="10" />
+    <Property Name="matKhau" Type="char" MaxLength="20" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
+    <Property Name="ImgUrl" Type="text" />
+    <Property Name="IDShop" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="SanPham">
+    <Key>
+      <PropertyRef Name="IDSP" />
+    </Key>
+    <Property Name="IDSP" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="TenSP" Type="nvarchar" MaxLength="100" />
+    <Property Name="IDDanhMuc" Type="varchar" MaxLength="10" />
+    <Property Name="IDShop" Type="varchar" MaxLength="10" />
+    <Property Name="DanhGia" Type="int" />
+    <Property Name="Gia" Type="int" />
+    <Property Name="soLuong" Type="int" />
+    <Property Name="ImgUrl" Type="text" />
+  </EntityType>
+  <EntityType Name="SHOP">
+    <Key>
+      <PropertyRef Name="IDShop" />
+    </Key>
+    <Property Name="IDShop" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="tenShop" Type="nvarchar" MaxLength="150" />
+    <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
+    <Property Name="ImgUrl" Type="text" />
+  </EntityType>
+  <Association Name="FK_id">
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+    <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NguoiDung">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="GioHang">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IDDM">
+    <End Role="DanhMuc" Type="Self.DanhMuc" Multiplicity="0..1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DanhMuc">
+        <PropertyRef Name="IDDanhMuc" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="IDDanhMuc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IDdondat">
+    <End Role="DonDatHang" Type="Self.DonDatHang" Multiplicity="0..1" />
+    <End Role="ChiTietDonDat" Type="Self.ChiTietDonDat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DonDatHang">
+        <PropertyRef Name="IDDonDat" />
+      </Principal>
+      <Dependent Role="ChiTietDonDat">
+        <PropertyRef Name="IDDonDat" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_idnd">
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NguoiDung">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DonHang">
+        <PropertyRef Name="IDND" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IDSH">
+    <End Role="SHOP" Type="Self.SHOP" Multiplicity="0..1" />
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SHOP">
+        <PropertyRef Name="IDShop" />
+      </Principal>
+      <Dependent Role="NguoiDung">
+        <PropertyRef Name="IDShop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_idshop">
+    <End Role="SHOP" Type="Self.SHOP" Multiplicity="0..1" />
+    <End Role="DonDatHang" Type="Self.DonDatHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SHOP">
+        <PropertyRef Name="IDShop" />
+      </Principal>
+      <Dependent Role="DonDatHang">
+        <PropertyRef Name="IDShop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_idsp">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
+    <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="IDSP" />
+      </Principal>
+      <Dependent Role="GioHang">
+        <PropertyRef Name="IDSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_idspdat">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
+    <End Role="ChiTietDonDat" Type="Self.ChiTietDonDat" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="IDSP" />
+      </Principal>
+      <Dependent Role="ChiTietDonDat">
+        <PropertyRef Name="IDSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_idspshop">
+    <End Role="SHOP" Type="Self.SHOP" Multiplicity="0..1" />
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SHOP">
+        <PropertyRef Name="IDShop" />
+      </Principal>
+      <Dependent Role="SanPham">
+        <PropertyRef Name="IDShop" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_spid">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
+    <End Role="ChiTietDonHang" Type="Self.ChiTietDonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="IDSP" />
+      </Principal>
+      <Dependent Role="ChiTietDonHang">
+        <PropertyRef Name="IDSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fl_iddh">
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="1" />
+    <End Role="ChiTietDonHang" Type="Self.ChiTietDonHang" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DonHang">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ChiTietDonHang">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="addDanhMuc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ten" Type="nvarchar" Mode="In" />
+    <Parameter Name="img" Type="text" Mode="In" />
+    <Parameter Name="moTa" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="AddNguoiDung" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="hoTen" Type="nvarchar" Mode="In" />
+    <Parameter Name="sdt" Type="char" Mode="In" />
+    <Parameter Name="pass" Type="char" Mode="In" />
+    <Parameter Name="diachi" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="AddShop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ten" Type="nvarchar" Mode="In" />
+    <Parameter Name="diachi" Type="nvarchar" Mode="In" />
+    <Parameter Name="img" Type="text" Mode="In" />
+  </Function>
+  <Function Name="addShopforUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idND" Type="varchar" Mode="In" />
+    <Parameter Name="idshop" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="AUTO_IDDM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
+  <Function Name="AUTO_IDND" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
+  <Function Name="AUTO_IDSHOP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
+  <Function Name="AUTO_IDSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
+  <Function Name="updateImgNguoiDung" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="varchar" Mode="In" />
+    <Parameter Name="img" Type="text" Mode="In" />
+  </Function>
+  <Function Name="updateImgSHOP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="varchar" Mode="In" />
+    <Parameter Name="img" Type="text" Mode="In" />
+  </Function>
+  <EntityContainer Name="FastFoodAppModelStoreContainer">
+    <EntitySet Name="ChiTietDonDat" EntityType="Self.ChiTietDonDat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChiTietDonHang" EntityType="Self.ChiTietDonHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DanhMuc" EntityType="Self.DanhMuc" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DonDatHang" EntityType="Self.DonDatHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DonHang" EntityType="Self.DonHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GioHang" EntityType="Self.GioHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NguoiDung" EntityType="Self.NguoiDung" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SanPham" EntityType="Self.SanPham" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SHOP" EntityType="Self.SHOP" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_id" Association="Self.FK_id">
+      <End Role="NguoiDung" EntitySet="NguoiDung" />
+      <End Role="GioHang" EntitySet="GioHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IDDM" Association="Self.FK_IDDM">
+      <End Role="DanhMuc" EntitySet="DanhMuc" />
+      <End Role="SanPham" EntitySet="SanPham" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IDdondat" Association="Self.FK_IDdondat">
+      <End Role="DonDatHang" EntitySet="DonDatHang" />
+      <End Role="ChiTietDonDat" EntitySet="ChiTietDonDat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_idnd" Association="Self.FK_idnd">
+      <End Role="NguoiDung" EntitySet="NguoiDung" />
+      <End Role="DonHang" EntitySet="DonHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IDSH" Association="Self.FK_IDSH">
+      <End Role="SHOP" EntitySet="SHOP" />
+      <End Role="NguoiDung" EntitySet="NguoiDung" />
+    </AssociationSet>
+    <AssociationSet Name="FK_idshop" Association="Self.FK_idshop">
+      <End Role="SHOP" EntitySet="SHOP" />
+      <End Role="DonDatHang" EntitySet="DonDatHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK_idsp" Association="Self.FK_idsp">
+      <End Role="SanPham" EntitySet="SanPham" />
+      <End Role="GioHang" EntitySet="GioHang" />
+    </AssociationSet>
+    <AssociationSet Name="fk_idspdat" Association="Self.fk_idspdat">
+      <End Role="SanPham" EntitySet="SanPham" />
+      <End Role="ChiTietDonDat" EntitySet="ChiTietDonDat" />
+    </AssociationSet>
+    <AssociationSet Name="FK_idspshop" Association="Self.FK_idspshop">
+      <End Role="SHOP" EntitySet="SHOP" />
+      <End Role="SanPham" EntitySet="SanPham" />
+    </AssociationSet>
+    <AssociationSet Name="fk_spid" Association="Self.fk_spid">
+      <End Role="SanPham" EntitySet="SanPham" />
+      <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
+    </AssociationSet>
+    <AssociationSet Name="fl_iddh" Association="Self.fl_iddh">
+      <End Role="DonHang" EntitySet="DonHang" />
+      <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

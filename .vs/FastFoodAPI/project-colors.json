@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "c9c4780a-3ef6-490a-9192-aad509e66a40": {
+      "ProjectGuid": "c9c4780a-3ef6-490a-9192-aad509e66a40",
+      "DisplayName": "FastFoodAPI",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
