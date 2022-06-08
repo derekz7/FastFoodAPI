@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="FastFoodAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Banner">
+    <Key>
+      <PropertyRef Name="IDbanner" />
+    </Key>
+    <Property Name="IDbanner" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImgBanner" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
   <EntityType Name="ChiTietDonDat">
     <Key>
       <PropertyRef Name="ID" />
@@ -30,7 +37,7 @@
     </Key>
     <Property Name="IDDanhMuc" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="TenDanhMuc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="ImgUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ImgDM" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="moTa" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="SanPham" Relationship="Self.FK_IDDM" FromRole="DanhMuc" ToRole="SanPham" />
   </EntityType>
@@ -69,6 +76,15 @@
     <NavigationProperty Name="NguoiDung" Relationship="Self.FK_id" FromRole="GioHang" ToRole="NguoiDung" />
     <NavigationProperty Name="SanPham" Relationship="Self.FK_idsp" FromRole="GioHang" ToRole="SanPham" />
   </EntityType>
+  <EntityType Name="HinhAnh">
+    <Key>
+      <PropertyRef Name="idAnh" />
+    </Key>
+    <Property Name="idAnh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="imgUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IDSP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="SanPham" Relationship="Self.FK_idhasp" FromRole="HinhAnh" ToRole="SanPham" />
+  </EntityType>
   <EntityType Name="NguoiDung">
     <Key>
       <PropertyRef Name="ID" />
@@ -79,7 +95,7 @@
     <Property Name="SDT" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
     <Property Name="matKhau" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
     <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="ImgUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ImgND" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="IDShop" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="DonHang" Relationship="Self.FK_idnd" FromRole="NguoiDung" ToRole="DonHang" />
     <NavigationProperty Name="GioHang" Relationship="Self.FK_id" FromRole="NguoiDung" ToRole="GioHang" />
@@ -96,11 +112,12 @@
     <Property Name="DanhGia" Type="Int32" />
     <Property Name="Gia" Type="Int32" />
     <Property Name="soLuong" Type="Int32" />
-    <Property Name="ImgUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ImgSP" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="ChiTietDonDat" Relationship="Self.fk_idspdat" FromRole="SanPham" ToRole="ChiTietDonDat" />
     <NavigationProperty Name="ChiTietDonHang" Relationship="Self.fk_spid" FromRole="SanPham" ToRole="ChiTietDonHang" />
     <NavigationProperty Name="DanhMuc" Relationship="Self.FK_IDDM" FromRole="SanPham" ToRole="DanhMuc" />
     <NavigationProperty Name="GioHang" Relationship="Self.FK_idsp" FromRole="SanPham" ToRole="GioHang" />
+    <NavigationProperty Name="HinhAnh" Relationship="Self.FK_idhasp" FromRole="SanPham" ToRole="HinhAnh" />
     <NavigationProperty Name="SHOP" Relationship="Self.FK_idspshop" FromRole="SanPham" ToRole="SHOP" />
   </EntityType>
   <EntityType Name="SHOP">
@@ -110,7 +127,7 @@
     <Property Name="IDShop" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="tenShop" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="ImgUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ImgShop" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="DonDatHang" Relationship="Self.FK_idshop" FromRole="SHOP" ToRole="DonDatHang" />
     <NavigationProperty Name="NguoiDung" Relationship="Self.FK_IDSH" FromRole="SHOP" ToRole="NguoiDung" />
     <NavigationProperty Name="SanPham" Relationship="Self.FK_idspshop" FromRole="SHOP" ToRole="SanPham" />
@@ -223,6 +240,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_idhasp">
+    <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
+    <End Role="HinhAnh" Type="Self.HinhAnh" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SanPham">
+        <PropertyRef Name="IDSP" />
+      </Principal>
+      <Dependent Role="HinhAnh">
+        <PropertyRef Name="IDSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_IDSH">
     <End Role="SHOP" Type="Self.SHOP" Multiplicity="0..1" />
     <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="*" />
@@ -248,12 +277,14 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="FastFoodAppEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Banner" EntityType="Self.Banner" />
     <EntitySet Name="ChiTietDonDat" EntityType="Self.ChiTietDonDat" />
     <EntitySet Name="ChiTietDonHang" EntityType="Self.ChiTietDonHang" />
     <EntitySet Name="DanhMuc" EntityType="Self.DanhMuc" />
     <EntitySet Name="DonDatHang" EntityType="Self.DonDatHang" />
     <EntitySet Name="DonHang" EntityType="Self.DonHang" />
     <EntitySet Name="GioHang" EntityType="Self.GioHang" />
+    <EntitySet Name="HinhAnh" EntityType="Self.HinhAnh" />
     <EntitySet Name="NguoiDung" EntityType="Self.NguoiDung" />
     <EntitySet Name="SanPham" EntityType="Self.SanPham" />
     <EntitySet Name="SHOP" EntityType="Self.SHOP" />
@@ -293,6 +324,10 @@
       <End Role="SanPham" EntitySet="SanPham" />
       <End Role="GioHang" EntitySet="GioHang" />
     </AssociationSet>
+    <AssociationSet Name="FK_idhasp" Association="Self.FK_idhasp">
+      <End Role="SanPham" EntitySet="SanPham" />
+      <End Role="HinhAnh" EntitySet="HinhAnh" />
+    </AssociationSet>
     <AssociationSet Name="FK_IDSH" Association="Self.FK_IDSH">
       <End Role="SHOP" EntitySet="SHOP" />
       <End Role="NguoiDung" EntitySet="NguoiDung" />
@@ -311,7 +346,14 @@
       <Parameter Name="hoTen" Mode="In" Type="String" />
       <Parameter Name="sdt" Mode="In" Type="String" />
       <Parameter Name="pass" Mode="In" Type="String" />
-      <Parameter Name="diachi" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="addSanPham">
+      <Parameter Name="tenSP" Mode="In" Type="String" />
+      <Parameter Name="IDDanhMuc" Mode="In" Type="String" />
+      <Parameter Name="idShop" Mode="In" Type="String" />
+      <Parameter Name="Gia" Mode="In" Type="Int32" />
+      <Parameter Name="sl" Mode="In" Type="Int32" />
+      <Parameter Name="img" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="AddShop">
       <Parameter Name="ten" Mode="In" Type="String" />
@@ -322,6 +364,17 @@
       <Parameter Name="idND" Mode="In" Type="String" />
       <Parameter Name="idshop" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="danhGiaSP">
+      <Parameter Name="danhgia" Mode="In" Type="Int32" />
+      <Parameter Name="maSP" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="GetSPbyDanhMuc" ReturnType="Collection(FastFoodAppModel.GetSPbyDanhMuc_Result)">
+      <Parameter Name="maDM" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="updateDiaChiND">
+      <Parameter Name="id" Mode="In" Type="String" />
+      <Parameter Name="diachi" Mode="In" Type="String" />
+    </FunctionImport>
     <FunctionImport Name="updateImgNguoiDung">
       <Parameter Name="id" Mode="In" Type="String" />
       <Parameter Name="img" Mode="In" Type="String" />
@@ -331,4 +384,14 @@
       <Parameter Name="img" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="GetSPbyDanhMuc_Result">
+    <Property Type="String" Name="IDSP" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="TenSP" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="tenShop" Nullable="true" MaxLength="150" />
+    <Property Type="Int32" Name="DanhGia" Nullable="true" />
+    <Property Type="Int32" Name="Gia" Nullable="true" />
+    <Property Type="Int32" Name="soLuong" Nullable="true" />
+    <Property Type="String" Name="ImgSP" Nullable="true" MaxLength="Max" />
+    <Property Type="String" Name="TenDanhMuc" Nullable="true" MaxLength="100" />
+  </ComplexType>
 </Schema>

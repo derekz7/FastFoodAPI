@@ -1,4 +1,5 @@
 ﻿using FastFoodAPI.Models;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -46,15 +47,18 @@ namespace FastFoodAPI.Controllers.api
 
         [HttpGet]
         [Route("api/SanPhams/getSPbyDM")]
-        public IHttpActionResult GetSPbyDanhMuc(string idDM)
+        public IEnumerable<SanPham> getSPbyDM(string idDM)
         {
-            SanPham sanPham = db.SanPham.Where(x => x.IDDanhMuc == idDM).FirstOrDefault();
-            if (sanPham == null)
+       
+           if(idDM == "DM001")
             {
-                return NotFound();
+                return db.SanPham.ToList();
+            }
+            else
+            {
+                return db.SanPham.Where(x => x.IDDanhMuc.Equals(idDM)).ToList();
             }
 
-            return Ok(sanPham);
         }
 
         // PUT: api/SanPhams/5

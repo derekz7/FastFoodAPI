@@ -25,7 +25,7 @@ namespace FastFoodAPI.Models
         public string IDShop { get; set; }
         public string tenShop { get; set; }
         public string DiaChi { get; set; }
-        public string ImgUrl { get; set; }
+        public string ImgShop { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonDatHang> DonDatHang { get; set; }

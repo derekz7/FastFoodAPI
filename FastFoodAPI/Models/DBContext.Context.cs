@@ -27,12 +27,14 @@ namespace FastFoodAPI.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Banner> Banner { get; set; }
         public virtual DbSet<ChiTietDonDat> ChiTietDonDat { get; set; }
         public virtual DbSet<ChiTietDonHang> ChiTietDonHang { get; set; }
         public virtual DbSet<DanhMuc> DanhMuc { get; set; }
         public virtual DbSet<DonDatHang> DonDatHang { get; set; }
         public virtual DbSet<DonHang> DonHang { get; set; }
         public virtual DbSet<GioHang> GioHang { get; set; }
+        public virtual DbSet<HinhAnh> HinhAnh { get; set; }
         public virtual DbSet<NguoiDung> NguoiDung { get; set; }
         public virtual DbSet<SanPham> SanPham { get; set; }
         public virtual DbSet<SHOP> SHOP { get; set; }
@@ -54,7 +56,7 @@ namespace FastFoodAPI.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addDanhMuc", tenParameter, imgParameter, moTaParameter);
         }
     
-        public virtual int AddNguoiDung(string email, string hoTen, string sdt, string pass, string diachi)
+        public virtual int AddNguoiDung(string email, string hoTen, string sdt, string pass)
         {
             var emailParameter = email != null ?
                 new ObjectParameter("email", email) :
@@ -72,11 +74,36 @@ namespace FastFoodAPI.Models
                 new ObjectParameter("pass", pass) :
                 new ObjectParameter("pass", typeof(string));
     
-            var diachiParameter = diachi != null ?
-                new ObjectParameter("diachi", diachi) :
-                new ObjectParameter("diachi", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddNguoiDung", emailParameter, hoTenParameter, sdtParameter, passParameter);
+        }
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddNguoiDung", emailParameter, hoTenParameter, sdtParameter, passParameter, diachiParameter);
+        public virtual int addSanPham(string tenSP, string iDDanhMuc, string idShop, Nullable<int> gia, Nullable<int> sl, string img)
+        {
+            var tenSPParameter = tenSP != null ?
+                new ObjectParameter("tenSP", tenSP) :
+                new ObjectParameter("tenSP", typeof(string));
+    
+            var iDDanhMucParameter = iDDanhMuc != null ?
+                new ObjectParameter("IDDanhMuc", iDDanhMuc) :
+                new ObjectParameter("IDDanhMuc", typeof(string));
+    
+            var idShopParameter = idShop != null ?
+                new ObjectParameter("idShop", idShop) :
+                new ObjectParameter("idShop", typeof(string));
+    
+            var giaParameter = gia.HasValue ?
+                new ObjectParameter("Gia", gia) :
+                new ObjectParameter("Gia", typeof(int));
+    
+            var slParameter = sl.HasValue ?
+                new ObjectParameter("sl", sl) :
+                new ObjectParameter("sl", typeof(int));
+    
+            var imgParameter = img != null ?
+                new ObjectParameter("img", img) :
+                new ObjectParameter("img", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addSanPham", tenSPParameter, iDDanhMucParameter, idShopParameter, giaParameter, slParameter, imgParameter);
         }
     
         public virtual int AddShop(string ten, string diachi, string img)
@@ -107,6 +134,41 @@ namespace FastFoodAPI.Models
                 new ObjectParameter("idshop", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addShopforUser", idNDParameter, idshopParameter);
+        }
+    
+        public virtual int danhGiaSP(Nullable<int> danhgia, string maSP)
+        {
+            var danhgiaParameter = danhgia.HasValue ?
+                new ObjectParameter("danhgia", danhgia) :
+                new ObjectParameter("danhgia", typeof(int));
+    
+            var maSPParameter = maSP != null ?
+                new ObjectParameter("maSP", maSP) :
+                new ObjectParameter("maSP", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("danhGiaSP", danhgiaParameter, maSPParameter);
+        }
+    
+        public virtual ObjectResult<GetSPbyDanhMuc_Result> GetSPbyDanhMuc(string maDM)
+        {
+            var maDMParameter = maDM != null ?
+                new ObjectParameter("maDM", maDM) :
+                new ObjectParameter("maDM", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSPbyDanhMuc_Result>("GetSPbyDanhMuc", maDMParameter);
+        }
+    
+        public virtual int updateDiaChiND(string id, string diachi)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(string));
+    
+            var diachiParameter = diachi != null ?
+                new ObjectParameter("diachi", diachi) :
+                new ObjectParameter("diachi", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateDiaChiND", idParameter, diachiParameter);
         }
     
         public virtual int updateImgNguoiDung(string id, string img)

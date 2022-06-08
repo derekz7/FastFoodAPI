@@ -20,6 +20,7 @@ namespace FastFoodAPI.Models
             this.ChiTietDonDat = new HashSet<ChiTietDonDat>();
             this.ChiTietDonHang = new HashSet<ChiTietDonHang>();
             this.GioHang = new HashSet<GioHang>();
+            this.HinhAnh = new HashSet<HinhAnh>();
         }
     
         public string IDSP { get; set; }
@@ -29,7 +30,7 @@ namespace FastFoodAPI.Models
         public Nullable<int> DanhGia { get; set; }
         public Nullable<int> Gia { get; set; }
         public Nullable<int> soLuong { get; set; }
-        public string ImgUrl { get; set; }
+        public string ImgSP { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDonDat> ChiTietDonDat { get; set; }
@@ -38,6 +39,8 @@ namespace FastFoodAPI.Models
         public virtual DanhMuc DanhMuc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GioHang> GioHang { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HinhAnh> HinhAnh { get; set; }
         public virtual SHOP SHOP { get; set; }
     }
 }
