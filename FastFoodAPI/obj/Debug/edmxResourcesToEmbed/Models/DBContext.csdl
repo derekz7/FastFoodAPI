@@ -113,6 +113,7 @@
     <Property Name="Gia" Type="Int32" />
     <Property Name="soLuong" Type="Int32" />
     <Property Name="ImgSP" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="moTaSP" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="ChiTietDonDat" Relationship="Self.fk_idspdat" FromRole="SanPham" ToRole="ChiTietDonDat" />
     <NavigationProperty Name="ChiTietDonHang" Relationship="Self.fk_spid" FromRole="SanPham" ToRole="ChiTietDonHang" />
     <NavigationProperty Name="DanhMuc" Relationship="Self.FK_IDDM" FromRole="SanPham" ToRole="DanhMuc" />
@@ -276,7 +277,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="FastFoodAppEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="FastFoodAppEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Banner" EntityType="Self.Banner" />
     <EntitySet Name="ChiTietDonDat" EntityType="Self.ChiTietDonDat" />
     <EntitySet Name="ChiTietDonHang" EntityType="Self.ChiTietDonHang" />

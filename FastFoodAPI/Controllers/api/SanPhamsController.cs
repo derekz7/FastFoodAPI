@@ -11,7 +11,7 @@ namespace FastFoodAPI.Controllers.api
 {
     public class SanPhamsController : ApiController
     {
-        private FastFoodAppEntities db = new FastFoodAppEntities();
+        private FastFoodAppEntities1 db = new FastFoodAppEntities1();
 
         // GET: api/SanPhams
         public IQueryable<SanPham> GetSanPham()

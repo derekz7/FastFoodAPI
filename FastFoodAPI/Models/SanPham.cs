@@ -31,6 +31,7 @@ namespace FastFoodAPI.Models
         public Nullable<int> Gia { get; set; }
         public Nullable<int> soLuong { get; set; }
         public string ImgSP { get; set; }
+        public string moTaSP { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietDonDat> ChiTietDonDat { get; set; }

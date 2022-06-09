@@ -14,7 +14,7 @@ namespace FastFoodAPI.Controllers.api
 {
     public class NguoiDungsController : ApiController
     {
-        private FastFoodAppEntities db = new FastFoodAppEntities();
+        private FastFoodAppEntities1 db = new FastFoodAppEntities1();
 
         // GET: api/NguoiDungs
         public IQueryable<NguoiDung> GetNguoiDung()
@@ -36,16 +36,18 @@ namespace FastFoodAPI.Controllers.api
         }
 
         [HttpGet]
-        [Route("api/NguoiDungs/check")]
-        public IHttpActionResult GetNDLogin(string email, string sdt, string password)
+        [Route("api/NguoiDungs/DangNhap")]
+        public bool DangNhap(string sdt, string password)
         {
-            NguoiDung nguoiDung = db.NguoiDung.Where(x => x.Email == email && password == x.matKhau || x.SDT == sdt && password == x.matKhau).FirstOrDefault();
+            NguoiDung nguoiDung = db.NguoiDung.Where(x => x.SDT == sdt && password == x.matKhau).FirstOrDefault();
             if(nguoiDung == null)
             {
-                return NotFound();
+                return false;
             }
-            return Ok(nguoiDung);
+            return true;
         }
+
+      
 
         [HttpGet]
         [Route("api/NguoiDungs/checkemail")]

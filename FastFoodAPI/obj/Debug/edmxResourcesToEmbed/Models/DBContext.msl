@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="FastFoodAppModelStoreContainer" CdmEntityContainer="FastFoodAppEntities">
+  <EntityContainerMapping StorageEntityContainer="FastFoodAppModelStoreContainer" CdmEntityContainer="FastFoodAppEntities1">
     <EntitySetMapping Name="Banner">
       <EntityTypeMapping TypeName="FastFoodAppModel.Banner">
         <MappingFragment StoreEntitySet="Banner">
@@ -107,6 +107,7 @@
           <ScalarProperty Name="Gia" ColumnName="Gia" />
           <ScalarProperty Name="soLuong" ColumnName="soLuong" />
           <ScalarProperty Name="ImgSP" ColumnName="ImgSP" />
+          <ScalarProperty Name="moTaSP" ColumnName="moTaSP" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

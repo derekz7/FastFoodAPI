@@ -14,7 +14,7 @@ namespace FastFoodAPI.Controllers.api
 {
     public class DanhMucsController : ApiController
     {
-        private FastFoodAppEntities db = new FastFoodAppEntities();
+        private FastFoodAppEntities1 db = new FastFoodAppEntities1();
 
         // GET: api/DanhMucs
         public IQueryable<DanhMuc> GetDanhMuc()

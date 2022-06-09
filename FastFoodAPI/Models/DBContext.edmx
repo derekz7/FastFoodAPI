@@ -103,6 +103,7 @@
           <Property Name="Gia" Type="int" />
           <Property Name="soLuong" Type="int" />
           <Property Name="ImgSP" Type="text" />
+          <Property Name="moTaSP" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="SHOP">
           <Key>
@@ -487,6 +488,7 @@
           <Property Name="Gia" Type="Int32" />
           <Property Name="soLuong" Type="Int32" />
           <Property Name="ImgSP" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="moTaSP" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ChiTietDonDat" Relationship="Self.fk_idspdat" FromRole="SanPham" ToRole="ChiTietDonDat" />
           <NavigationProperty Name="ChiTietDonHang" Relationship="Self.fk_spid" FromRole="SanPham" ToRole="ChiTietDonHang" />
           <NavigationProperty Name="DanhMuc" Relationship="Self.FK_IDDM" FromRole="SanPham" ToRole="DanhMuc" />
@@ -650,7 +652,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FastFoodAppEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="FastFoodAppEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Banner" EntityType="Self.Banner" />
           <EntitySet Name="ChiTietDonDat" EntityType="Self.ChiTietDonDat" />
           <EntitySet Name="ChiTietDonHang" EntityType="Self.ChiTietDonHang" />
@@ -773,7 +775,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FastFoodAppModelStoreContainer" CdmEntityContainer="FastFoodAppEntities">
+        <EntityContainerMapping StorageEntityContainer="FastFoodAppModelStoreContainer" CdmEntityContainer="FastFoodAppEntities1">
           <EntitySetMapping Name="Banner">
             <EntityTypeMapping TypeName="FastFoodAppModel.Banner">
               <MappingFragment StoreEntitySet="Banner">
@@ -880,6 +882,7 @@
                 <ScalarProperty Name="Gia" ColumnName="Gia" />
                 <ScalarProperty Name="soLuong" ColumnName="soLuong" />
                 <ScalarProperty Name="ImgSP" ColumnName="ImgSP" />
+                <ScalarProperty Name="moTaSP" ColumnName="moTaSP" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

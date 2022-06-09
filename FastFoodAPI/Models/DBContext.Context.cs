@@ -15,10 +15,10 @@ namespace FastFoodAPI.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class FastFoodAppEntities : DbContext
+    public partial class FastFoodAppEntities1 : DbContext
     {
-        public FastFoodAppEntities()
-            : base("name=FastFoodAppEntities")
+        public FastFoodAppEntities1()
+            : base("name=FastFoodAppEntities1")
         {
         }
     

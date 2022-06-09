@@ -98,6 +98,7 @@
     <Property Name="Gia" Type="int" />
     <Property Name="soLuong" Type="int" />
     <Property Name="ImgSP" Type="text" />
+    <Property Name="moTaSP" Type="nvarchar" MaxLength="300" />
   </EntityType>
   <EntityType Name="SHOP">
     <Key>

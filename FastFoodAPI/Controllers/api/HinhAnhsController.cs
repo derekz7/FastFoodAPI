@@ -12,44 +12,49 @@ using FastFoodAPI.Models;
 
 namespace FastFoodAPI.Controllers.api
 {
-    public class BannersController : ApiController
+    public class HinhAnhsController : ApiController
     {
         private FastFoodAppEntities1 db = new FastFoodAppEntities1();
 
-        // GET: api/Banners
-        public IQueryable<Banner> GetBanner()
+        // GET: api/HinhAnhs
+        public IQueryable<HinhAnh> GetHinhAnh()
         {
-            return db.Banner;
+            return db.HinhAnh;
         }
 
-        // GET: api/Banners/5
-        [ResponseType(typeof(Banner))]
-        public IHttpActionResult GetBanner(int id)
-        { 
-            Banner banner = db.Banner.Find(id);
-            if (banner == null)
+        // GET: api/HinhAnhs/5
+        [ResponseType(typeof(HinhAnh))]
+        public IHttpActionResult GetHinhAnh(int id)
+        {
+            HinhAnh hinhAnh = db.HinhAnh.Find(id);
+            if (hinhAnh == null)
             {
                 return NotFound();
             }
 
-            return Ok(banner);
+            return Ok(hinhAnh);
         }
-
-        // PUT: api/Banners/5
+        [HttpGet]
+        [Route("api/HinhAnhs/getImageSP")]
+        public IEnumerable<HinhAnh> Get(string idSP)
+        {
+            return db.HinhAnh.Where(x => x.IDSP == idSP);
+        }
+        // PUT: api/HinhAnhs/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutBanner(int id, Banner banner)
+        public IHttpActionResult PutHinhAnh(int id, HinhAnh hinhAnh)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != banner.IDbanner)
+            if (id != hinhAnh.idAnh)
             {
                 return BadRequest();
             }
 
-            db.Entry(banner).State = EntityState.Modified;
+            db.Entry(hinhAnh).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +62,7 @@ namespace FastFoodAPI.Controllers.api
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BannerExists(id))
+                if (!HinhAnhExists(id))
                 {
                     return NotFound();
                 }
@@ -70,35 +75,35 @@ namespace FastFoodAPI.Controllers.api
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Banners
-        [ResponseType(typeof(Banner))]
-        public IHttpActionResult PostBanner(Banner banner)
+        // POST: api/HinhAnhs
+        [ResponseType(typeof(HinhAnh))]
+        public IHttpActionResult PostHinhAnh(HinhAnh hinhAnh)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Banner.Add(banner);
+            db.HinhAnh.Add(hinhAnh);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = banner.IDbanner }, banner);
+            return CreatedAtRoute("DefaultApi", new { id = hinhAnh.idAnh }, hinhAnh);
         }
 
-        // DELETE: api/Banners/5
-        [ResponseType(typeof(Banner))]
-        public IHttpActionResult DeleteBanner(int id)
+        // DELETE: api/HinhAnhs/5
+        [ResponseType(typeof(HinhAnh))]
+        public IHttpActionResult DeleteHinhAnh(int id)
         {
-            Banner banner = db.Banner.Find(id);
-            if (banner == null)
+            HinhAnh hinhAnh = db.HinhAnh.Find(id);
+            if (hinhAnh == null)
             {
                 return NotFound();
             }
 
-            db.Banner.Remove(banner);
+            db.HinhAnh.Remove(hinhAnh);
             db.SaveChanges();
 
-            return Ok(banner);
+            return Ok(hinhAnh);
         }
 
         protected override void Dispose(bool disposing)
@@ -110,9 +115,9 @@ namespace FastFoodAPI.Controllers.api
             base.Dispose(disposing);
         }
 
-        private bool BannerExists(int id)
+        private bool HinhAnhExists(int id)
         {
-            return db.Banner.Count(e => e.IDbanner == id) > 0;
+            return db.HinhAnh.Count(e => e.idAnh == id) > 0;
         }
     }
 }
