@@ -56,11 +56,11 @@ namespace FastFoodAPI.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addDanhMuc", tenParameter, imgParameter, moTaParameter);
         }
     
-        public virtual int AddNguoiDung(string email, string hoTen, string sdt, string pass)
+        public virtual int AddNguoiDung(string username, string hoTen, string sdt, string pass, string diachi)
         {
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
     
             var hoTenParameter = hoTen != null ?
                 new ObjectParameter("hoTen", hoTen) :
@@ -74,7 +74,11 @@ namespace FastFoodAPI.Models
                 new ObjectParameter("pass", pass) :
                 new ObjectParameter("pass", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddNguoiDung", emailParameter, hoTenParameter, sdtParameter, passParameter);
+            var diachiParameter = diachi != null ?
+                new ObjectParameter("diachi", diachi) :
+                new ObjectParameter("diachi", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddNguoiDung", usernameParameter, hoTenParameter, sdtParameter, passParameter, diachiParameter);
         }
     
         public virtual int addSanPham(string tenSP, string iDDanhMuc, string idShop, Nullable<int> gia, Nullable<int> sl, string img)
@@ -106,8 +110,12 @@ namespace FastFoodAPI.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addSanPham", tenSPParameter, iDDanhMucParameter, idShopParameter, giaParameter, slParameter, imgParameter);
         }
     
-        public virtual int AddShop(string ten, string diachi, string img)
+        public virtual int AddShop(string username, string ten, string diachi, string img)
         {
+            var usernameParameter = username != null ?
+                new ObjectParameter("username", username) :
+                new ObjectParameter("username", typeof(string));
+    
             var tenParameter = ten != null ?
                 new ObjectParameter("ten", ten) :
                 new ObjectParameter("ten", typeof(string));
@@ -120,20 +128,7 @@ namespace FastFoodAPI.Models
                 new ObjectParameter("img", img) :
                 new ObjectParameter("img", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddShop", tenParameter, diachiParameter, imgParameter);
-        }
-    
-        public virtual int addShopforUser(string idND, string idshop)
-        {
-            var idNDParameter = idND != null ?
-                new ObjectParameter("idND", idND) :
-                new ObjectParameter("idND", typeof(string));
-    
-            var idshopParameter = idshop != null ?
-                new ObjectParameter("idshop", idshop) :
-                new ObjectParameter("idshop", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("addShopforUser", idNDParameter, idshopParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddShop", usernameParameter, tenParameter, diachiParameter, imgParameter);
         }
     
         public virtual int danhGiaSP(Nullable<int> danhgia, string maSP)
@@ -156,19 +151,6 @@ namespace FastFoodAPI.Models
                 new ObjectParameter("maDM", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSPbyDanhMuc_Result>("GetSPbyDanhMuc", maDMParameter);
-        }
-    
-        public virtual int updateDiaChiND(string id, string diachi)
-        {
-            var idParameter = id != null ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(string));
-    
-            var diachiParameter = diachi != null ?
-                new ObjectParameter("diachi", diachi) :
-                new ObjectParameter("diachi", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateDiaChiND", idParameter, diachiParameter);
         }
     
         public virtual int updateImgNguoiDung(string id, string img)

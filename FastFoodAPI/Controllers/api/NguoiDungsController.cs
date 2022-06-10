@@ -35,25 +35,26 @@ namespace FastFoodAPI.Controllers.api
             return Ok(nguoiDung);
         }
 
+
         [HttpGet]
         [Route("api/NguoiDungs/DangNhap")]
-        public bool DangNhap(string sdt, string password)
+        public bool DangNhap(string username, string password)
         {
-            NguoiDung nguoiDung = db.NguoiDung.Where(x => x.SDT == sdt && password == x.matKhau).FirstOrDefault();
-            if(nguoiDung == null)
+            NguoiDung nguoiDung = db.NguoiDung.Where(x => x.Username == username && password == x.matKhau).FirstOrDefault();
+            if (nguoiDung == null)
             {
                 return false;
             }
             return true;
         }
 
-      
+
 
         [HttpGet]
-        [Route("api/NguoiDungs/checkemail")]
-        public IHttpActionResult GetNDbyEmail(string email)
+        [Route("api/NguoiDungs/checkUsername")]
+        public IHttpActionResult GetNDbyUsername(string username)
         {
-            NguoiDung nguoiDung = db.NguoiDung.Where(x => x.Email == email).FirstOrDefault();
+            NguoiDung nguoiDung = db.NguoiDung.Where(x => x.Username == username).FirstOrDefault();
             if (nguoiDung == null)
             {
                 return NotFound();
@@ -73,6 +74,30 @@ namespace FastFoodAPI.Controllers.api
             return Ok(nguoiDung);
         }
 
+        [HttpGet]
+        [Route("api/NguoiDungs/checkSDTexist")]
+        public bool checkND(string sdt)
+        {
+            NguoiDung nguoiDung = db.NguoiDung.Where(x => x.SDT == sdt).FirstOrDefault();
+            if (nguoiDung == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        [HttpGet]
+        [Route("api/NguoiDungs/checkUsernameExist")]
+        public bool checkUsername(string username)
+        {
+            NguoiDung nguoiDung = db.NguoiDung.Where(x => x.Username == username).FirstOrDefault();
+            if (nguoiDung == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
         // PUT: api/NguoiDungs/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutNguoiDung(string id, NguoiDung nguoiDung)
@@ -82,7 +107,7 @@ namespace FastFoodAPI.Controllers.api
                 return BadRequest(ModelState);
             }
 
-            if (id != nguoiDung.ID)
+            if (id != nguoiDung.Username)
             {
                 return BadRequest();
             }
@@ -108,8 +133,8 @@ namespace FastFoodAPI.Controllers.api
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/NguoiDungs
-        [ResponseType(typeof(NguoiDung))]
+        [HttpPost]
+        [Route("api/NguoiDungs/PostNguoiDung")]
         public IHttpActionResult PostNguoiDung(NguoiDung nguoiDung)
         {
             if (!ModelState.IsValid)
@@ -119,23 +144,8 @@ namespace FastFoodAPI.Controllers.api
 
             db.NguoiDung.Add(nguoiDung);
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (NguoiDungExists(nguoiDung.ID))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            return Ok(db.SaveChanges());
 
-            return CreatedAtRoute("DefaultApi", new { id = nguoiDung.ID }, nguoiDung);
         }
 
         // DELETE: api/NguoiDungs/5
@@ -165,7 +175,7 @@ namespace FastFoodAPI.Controllers.api
 
         private bool NguoiDungExists(string id)
         {
-            return db.NguoiDung.Count(e => e.ID == id) > 0;
+            return db.NguoiDung.Count(e => e.Username == id) > 0;
         }
     }
 }

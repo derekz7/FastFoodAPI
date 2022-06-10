@@ -51,7 +51,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="IDND" Type="varchar" MaxLength="10" />
+    <Property Name="Username" Type="varchar" MaxLength="30" />
     <Property Name="TinhTrang" Type="nvarchar" MaxLength="200" />
     <Property Name="Phiship" Type="int" />
     <Property Name="TongTien" Type="int" />
@@ -61,7 +61,7 @@
       <PropertyRef Name="IDGH" />
     </Key>
     <Property Name="IDGH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ID" Type="varchar" MaxLength="10" />
+    <Property Name="Username" Type="varchar" MaxLength="30" />
     <Property Name="IDSP" Type="varchar" MaxLength="10" />
     <Property Name="SoLuong" Type="int" />
   </EntityType>
@@ -75,16 +75,14 @@
   </EntityType>
   <EntityType Name="NguoiDung">
     <Key>
-      <PropertyRef Name="ID" />
+      <PropertyRef Name="Username" />
     </Key>
-    <Property Name="ID" Type="varchar" MaxLength="10" Nullable="false" />
-    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="Username" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="HoTen" Type="nvarchar" MaxLength="100" />
     <Property Name="SDT" Type="char" MaxLength="10" />
     <Property Name="matKhau" Type="char" MaxLength="20" />
     <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
     <Property Name="ImgND" Type="text" />
-    <Property Name="IDShop" Type="varchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="SanPham">
     <Key>
@@ -105,6 +103,7 @@
       <PropertyRef Name="IDShop" />
     </Key>
     <Property Name="IDShop" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="30" />
     <Property Name="tenShop" Type="nvarchar" MaxLength="150" />
     <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
     <Property Name="ImgShop" Type="text" />
@@ -114,10 +113,10 @@
     <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="NguoiDung">
-        <PropertyRef Name="ID" />
+        <PropertyRef Name="Username" />
       </Principal>
       <Dependent Role="GioHang">
-        <PropertyRef Name="ID" />
+        <PropertyRef Name="Username" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -154,30 +153,6 @@
       </Principal>
       <Dependent Role="HinhAnh">
         <PropertyRef Name="IDSP" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_idnd">
-    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
-    <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="NguoiDung">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="DonHang">
-        <PropertyRef Name="IDND" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_IDSH">
-    <End Role="SHOP" Type="Self.SHOP" Multiplicity="0..1" />
-    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SHOP">
-        <PropertyRef Name="IDShop" />
-      </Principal>
-      <Dependent Role="NguoiDung">
-        <PropertyRef Name="IDShop" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -229,6 +204,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="fk_iduser">
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+    <End Role="SHOP" Type="Self.SHOP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NguoiDung">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="SHOP">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="fk_spid">
     <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
     <End Role="ChiTietDonHang" Type="Self.ChiTietDonHang" Multiplicity="*" />
@@ -238,6 +225,18 @@
       </Principal>
       <Dependent Role="ChiTietDonHang">
         <PropertyRef Name="IDSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_username">
+    <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+    <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NguoiDung">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="DonHang">
+        <PropertyRef Name="Username" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -259,10 +258,11 @@
     <Parameter Name="moTa" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="AddNguoiDung" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="username" Type="varchar" Mode="In" />
     <Parameter Name="hoTen" Type="nvarchar" Mode="In" />
     <Parameter Name="sdt" Type="char" Mode="In" />
     <Parameter Name="pass" Type="char" Mode="In" />
+    <Parameter Name="diachi" Type="varchar" Mode="In" />
   </Function>
   <Function Name="addSanPham" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="tenSP" Type="nvarchar" Mode="In" />
@@ -273,16 +273,12 @@
     <Parameter Name="img" Type="text" Mode="In" />
   </Function>
   <Function Name="AddShop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="varchar" Mode="In" />
     <Parameter Name="ten" Type="nvarchar" Mode="In" />
     <Parameter Name="diachi" Type="nvarchar" Mode="In" />
     <Parameter Name="img" Type="text" Mode="In" />
   </Function>
-  <Function Name="addShopforUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="idND" Type="varchar" Mode="In" />
-    <Parameter Name="idshop" Type="varchar" Mode="In" />
-  </Function>
   <Function Name="AUTO_IDDM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
-  <Function Name="AUTO_IDND" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
   <Function Name="AUTO_IDSHOP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
   <Function Name="AUTO_IDSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
   <Function Name="danhGiaSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -291,10 +287,6 @@
   </Function>
   <Function Name="GetSPbyDanhMuc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="maDM" Type="varchar" Mode="In" />
-  </Function>
-  <Function Name="updateDiaChiND" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="id" Type="varchar" Mode="In" />
-    <Parameter Name="diachi" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="updateImgNguoiDung" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="varchar" Mode="In" />
@@ -332,14 +324,6 @@
       <End Role="SanPham" EntitySet="SanPham" />
       <End Role="HinhAnh" EntitySet="HinhAnh" />
     </AssociationSet>
-    <AssociationSet Name="FK_idnd" Association="Self.FK_idnd">
-      <End Role="NguoiDung" EntitySet="NguoiDung" />
-      <End Role="DonHang" EntitySet="DonHang" />
-    </AssociationSet>
-    <AssociationSet Name="FK_IDSH" Association="Self.FK_IDSH">
-      <End Role="SHOP" EntitySet="SHOP" />
-      <End Role="NguoiDung" EntitySet="NguoiDung" />
-    </AssociationSet>
     <AssociationSet Name="FK_idshop" Association="Self.FK_idshop">
       <End Role="SHOP" EntitySet="SHOP" />
       <End Role="DonDatHang" EntitySet="DonDatHang" />
@@ -356,9 +340,17 @@
       <End Role="SHOP" EntitySet="SHOP" />
       <End Role="SanPham" EntitySet="SanPham" />
     </AssociationSet>
+    <AssociationSet Name="fk_iduser" Association="Self.fk_iduser">
+      <End Role="NguoiDung" EntitySet="NguoiDung" />
+      <End Role="SHOP" EntitySet="SHOP" />
+    </AssociationSet>
     <AssociationSet Name="fk_spid" Association="Self.fk_spid">
       <End Role="SanPham" EntitySet="SanPham" />
       <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
+    </AssociationSet>
+    <AssociationSet Name="FK_username" Association="Self.FK_username">
+      <End Role="NguoiDung" EntitySet="NguoiDung" />
+      <End Role="DonHang" EntitySet="DonHang" />
     </AssociationSet>
     <AssociationSet Name="fl_iddh" Association="Self.fl_iddh">
       <End Role="DonHang" EntitySet="DonHang" />

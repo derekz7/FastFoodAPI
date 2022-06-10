@@ -18,19 +18,18 @@ namespace FastFoodAPI.Models
         public SHOP()
         {
             this.DonDatHang = new HashSet<DonDatHang>();
-            this.NguoiDung = new HashSet<NguoiDung>();
             this.SanPham = new HashSet<SanPham>();
         }
     
         public string IDShop { get; set; }
+        public string Username { get; set; }
         public string tenShop { get; set; }
         public string DiaChi { get; set; }
         public string ImgShop { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonDatHang> DonDatHang { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NguoiDung> NguoiDung { get; set; }
+        public virtual NguoiDung NguoiDung { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SanPham> SanPham { get; set; }
     }

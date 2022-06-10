@@ -19,21 +19,21 @@ namespace FastFoodAPI.Models
         {
             this.DonHang = new HashSet<DonHang>();
             this.GioHang = new HashSet<GioHang>();
+            this.SHOP = new HashSet<SHOP>();
         }
     
-        public string ID { get; set; }
-        public string Email { get; set; }
+        public string Username { get; set; }
         public string HoTen { get; set; }
         public string SDT { get; set; }
         public string matKhau { get; set; }
         public string DiaChi { get; set; }
         public string ImgND { get; set; }
-        public string IDShop { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DonHang> DonHang { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GioHang> GioHang { get; set; }
-        public virtual SHOP SHOP { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SHOP> SHOP { get; set; }
     }
 }

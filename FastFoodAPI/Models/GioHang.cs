@@ -15,7 +15,7 @@ namespace FastFoodAPI.Models
     public partial class GioHang
     {
         public int IDGH { get; set; }
-        public string ID { get; set; }
+        public string Username { get; set; }
         public string IDSP { get; set; }
         public Nullable<int> SoLuong { get; set; }
     

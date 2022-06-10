@@ -4,29 +4,29 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ba0a7fdb341f4f1d8fec46811c63bf6c" Name="Diagram1">
-        <EntityTypeShape EntityType="FastFoodAppModel.Banner" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FastFoodAppModel.ChiTietDonDat" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FastFoodAppModel.ChiTietDonHang" Width="1.5" PointX="7.5" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="FastFoodAppModel.DanhMuc" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
-        <EntityTypeShape EntityType="FastFoodAppModel.DonDatHang" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FastFoodAppModel.DonHang" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="FastFoodAppModel.GioHang" Width="1.5" PointX="5.25" PointY="11.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="FastFoodAppModel.HinhAnh" Width="1.5" PointX="10.25" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FastFoodAppModel.NguoiDung" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="FastFoodAppModel.SanPham" Width="1.5" PointX="8" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="FastFoodAppModel.SHOP" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+      <Diagram DiagramId="e681ecea95f44ac29f31347d32ec499a" Name="Diagram1" ZoomLevel="50">
+        <EntityTypeShape EntityType="FastFoodAppModel.Banner" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastFoodAppModel.ChiTietDonDat" Width="1.5" PointX="7.5" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastFoodAppModel.ChiTietDonHang" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastFoodAppModel.DanhMuc" Width="1.5" PointX="3" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastFoodAppModel.DonDatHang" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastFoodAppModel.DonHang" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastFoodAppModel.GioHang" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastFoodAppModel.HinhAnh" Width="1.5" PointX="7.5" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastFoodAppModel.NguoiDung" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastFoodAppModel.SanPham" Width="1.5" PointX="5.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FastFoodAppModel.SHOP" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
         <AssociationConnector Association="FastFoodAppModel.FK_IDdondat" ManuallyRouted="false" />
         <AssociationConnector Association="FastFoodAppModel.fk_idspdat" ManuallyRouted="false" />
         <AssociationConnector Association="FastFoodAppModel.fk_spid" ManuallyRouted="false" />
         <AssociationConnector Association="FastFoodAppModel.fl_iddh" ManuallyRouted="false" />
         <AssociationConnector Association="FastFoodAppModel.FK_IDDM" ManuallyRouted="false" />
         <AssociationConnector Association="FastFoodAppModel.FK_idshop" ManuallyRouted="false" />
-        <AssociationConnector Association="FastFoodAppModel.FK_idnd" ManuallyRouted="false" />
+        <AssociationConnector Association="FastFoodAppModel.FK_username" ManuallyRouted="false" />
         <AssociationConnector Association="FastFoodAppModel.FK_id" ManuallyRouted="false" />
         <AssociationConnector Association="FastFoodAppModel.FK_idsp" ManuallyRouted="false" />
         <AssociationConnector Association="FastFoodAppModel.FK_idhasp" ManuallyRouted="false" />
-        <AssociationConnector Association="FastFoodAppModel.FK_IDSH" ManuallyRouted="false" />
+        <AssociationConnector Association="FastFoodAppModel.fk_iduser" ManuallyRouted="false" />
         <AssociationConnector Association="FastFoodAppModel.FK_idspshop" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

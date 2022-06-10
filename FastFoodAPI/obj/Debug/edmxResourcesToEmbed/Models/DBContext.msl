@@ -56,7 +56,7 @@
       <EntityTypeMapping TypeName="FastFoodAppModel.DonHang">
         <MappingFragment StoreEntitySet="DonHang">
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="IDND" ColumnName="IDND" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
           <ScalarProperty Name="Phiship" ColumnName="Phiship" />
           <ScalarProperty Name="TongTien" ColumnName="TongTien" />
@@ -67,7 +67,7 @@
       <EntityTypeMapping TypeName="FastFoodAppModel.GioHang">
         <MappingFragment StoreEntitySet="GioHang">
           <ScalarProperty Name="IDGH" ColumnName="IDGH" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="IDSP" ColumnName="IDSP" />
           <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
         </MappingFragment>
@@ -85,14 +85,12 @@
     <EntitySetMapping Name="NguoiDung">
       <EntityTypeMapping TypeName="FastFoodAppModel.NguoiDung">
         <MappingFragment StoreEntitySet="NguoiDung">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="HoTen" ColumnName="HoTen" />
           <ScalarProperty Name="SDT" ColumnName="SDT" />
           <ScalarProperty Name="matKhau" ColumnName="matKhau" />
           <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
           <ScalarProperty Name="ImgND" ColumnName="ImgND" />
-          <ScalarProperty Name="IDShop" ColumnName="IDShop" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -115,6 +113,7 @@
       <EntityTypeMapping TypeName="FastFoodAppModel.SHOP">
         <MappingFragment StoreEntitySet="SHOP">
           <ScalarProperty Name="IDShop" ColumnName="IDShop" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="tenShop" ColumnName="tenShop" />
           <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
           <ScalarProperty Name="ImgShop" ColumnName="ImgShop" />
@@ -125,7 +124,6 @@
     <FunctionImportMapping FunctionImportName="AddNguoiDung" FunctionName="FastFoodAppModel.Store.AddNguoiDung" />
     <FunctionImportMapping FunctionImportName="addSanPham" FunctionName="FastFoodAppModel.Store.addSanPham" />
     <FunctionImportMapping FunctionImportName="AddShop" FunctionName="FastFoodAppModel.Store.AddShop" />
-    <FunctionImportMapping FunctionImportName="addShopforUser" FunctionName="FastFoodAppModel.Store.addShopforUser" />
     <FunctionImportMapping FunctionImportName="danhGiaSP" FunctionName="FastFoodAppModel.Store.danhGiaSP" />
     <FunctionImportMapping FunctionImportName="GetSPbyDanhMuc" FunctionName="FastFoodAppModel.Store.GetSPbyDanhMuc">
       <ResultMapping>
@@ -141,7 +139,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="updateDiaChiND" FunctionName="FastFoodAppModel.Store.updateDiaChiND" />
     <FunctionImportMapping FunctionImportName="updateImgNguoiDung" FunctionName="FastFoodAppModel.Store.updateImgNguoiDung" />
     <FunctionImportMapping FunctionImportName="updateImgSHOP" FunctionName="FastFoodAppModel.Store.updateImgSHOP" />
   </EntityContainerMapping>

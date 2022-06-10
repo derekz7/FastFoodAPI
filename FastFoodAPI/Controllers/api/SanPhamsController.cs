@@ -61,6 +61,18 @@ namespace FastFoodAPI.Controllers.api
 
         }
 
+        [HttpGet]
+        [Route("api/SanPhams/getShop")]
+        public IHttpActionResult getShop(string idshop)
+        {
+            SHOP shop = db.SHOP.Where(x => x.IDShop.Equals(idshop)).FirstOrDefault();
+            if (shop == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(shop);
+        }
         // PUT: api/SanPhams/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutSanPham(string id, SanPham sanPham)

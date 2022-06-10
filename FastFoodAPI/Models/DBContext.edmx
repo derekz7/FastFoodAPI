@@ -56,7 +56,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IDND" Type="varchar" MaxLength="10" />
+          <Property Name="Username" Type="varchar" MaxLength="30" />
           <Property Name="TinhTrang" Type="nvarchar" MaxLength="200" />
           <Property Name="Phiship" Type="int" />
           <Property Name="TongTien" Type="int" />
@@ -66,7 +66,7 @@
             <PropertyRef Name="IDGH" />
           </Key>
           <Property Name="IDGH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID" Type="varchar" MaxLength="10" />
+          <Property Name="Username" Type="varchar" MaxLength="30" />
           <Property Name="IDSP" Type="varchar" MaxLength="10" />
           <Property Name="SoLuong" Type="int" />
         </EntityType>
@@ -80,16 +80,14 @@
         </EntityType>
         <EntityType Name="NguoiDung">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="Username" />
           </Key>
-          <Property Name="ID" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Username" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="HoTen" Type="nvarchar" MaxLength="100" />
           <Property Name="SDT" Type="char" MaxLength="10" />
           <Property Name="matKhau" Type="char" MaxLength="20" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
           <Property Name="ImgND" Type="text" />
-          <Property Name="IDShop" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="SanPham">
           <Key>
@@ -110,6 +108,7 @@
             <PropertyRef Name="IDShop" />
           </Key>
           <Property Name="IDShop" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="30" />
           <Property Name="tenShop" Type="nvarchar" MaxLength="150" />
           <Property Name="DiaChi" Type="nvarchar" MaxLength="200" />
           <Property Name="ImgShop" Type="text" />
@@ -119,10 +118,10 @@
           <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="Username" />
             </Principal>
             <Dependent Role="GioHang">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -159,30 +158,6 @@
             </Principal>
             <Dependent Role="HinhAnh">
               <PropertyRef Name="IDSP" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_idnd">
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
-          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NguoiDung">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="DonHang">
-              <PropertyRef Name="IDND" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_IDSH">
-          <End Role="SHOP" Type="Self.SHOP" Multiplicity="0..1" />
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SHOP">
-              <PropertyRef Name="IDShop" />
-            </Principal>
-            <Dependent Role="NguoiDung">
-              <PropertyRef Name="IDShop" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -234,6 +209,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_iduser">
+          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+          <End Role="SHOP" Type="Self.SHOP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NguoiDung">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="SHOP">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_spid">
           <End Role="SanPham" Type="Self.SanPham" Multiplicity="0..1" />
           <End Role="ChiTietDonHang" Type="Self.ChiTietDonHang" Multiplicity="*" />
@@ -243,6 +230,18 @@
             </Principal>
             <Dependent Role="ChiTietDonHang">
               <PropertyRef Name="IDSP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_username">
+          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+          <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NguoiDung">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="DonHang">
+              <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -264,10 +263,11 @@
           <Parameter Name="moTa" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="AddNguoiDung" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="username" Type="varchar" Mode="In" />
           <Parameter Name="hoTen" Type="nvarchar" Mode="In" />
           <Parameter Name="sdt" Type="char" Mode="In" />
           <Parameter Name="pass" Type="char" Mode="In" />
+          <Parameter Name="diachi" Type="varchar" Mode="In" />
         </Function>
         <Function Name="addSanPham" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="tenSP" Type="nvarchar" Mode="In" />
@@ -278,16 +278,12 @@
           <Parameter Name="img" Type="text" Mode="In" />
         </Function>
         <Function Name="AddShop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="varchar" Mode="In" />
           <Parameter Name="ten" Type="nvarchar" Mode="In" />
           <Parameter Name="diachi" Type="nvarchar" Mode="In" />
           <Parameter Name="img" Type="text" Mode="In" />
         </Function>
-        <Function Name="addShopforUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="idND" Type="varchar" Mode="In" />
-          <Parameter Name="idshop" Type="varchar" Mode="In" />
-        </Function>
         <Function Name="AUTO_IDDM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
-        <Function Name="AUTO_IDND" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
         <Function Name="AUTO_IDSHOP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
         <Function Name="AUTO_IDSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar" />
         <Function Name="danhGiaSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -296,10 +292,6 @@
         </Function>
         <Function Name="GetSPbyDanhMuc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="maDM" Type="varchar" Mode="In" />
-        </Function>
-        <Function Name="updateDiaChiND" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="id" Type="varchar" Mode="In" />
-          <Parameter Name="diachi" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="updateImgNguoiDung" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="varchar" Mode="In" />
@@ -337,14 +329,6 @@
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="HinhAnh" EntitySet="HinhAnh" />
           </AssociationSet>
-          <AssociationSet Name="FK_idnd" Association="Self.FK_idnd">
-            <End Role="NguoiDung" EntitySet="NguoiDung" />
-            <End Role="DonHang" EntitySet="DonHang" />
-          </AssociationSet>
-          <AssociationSet Name="FK_IDSH" Association="Self.FK_IDSH">
-            <End Role="SHOP" EntitySet="SHOP" />
-            <End Role="NguoiDung" EntitySet="NguoiDung" />
-          </AssociationSet>
           <AssociationSet Name="FK_idshop" Association="Self.FK_idshop">
             <End Role="SHOP" EntitySet="SHOP" />
             <End Role="DonDatHang" EntitySet="DonDatHang" />
@@ -361,9 +345,17 @@
             <End Role="SHOP" EntitySet="SHOP" />
             <End Role="SanPham" EntitySet="SanPham" />
           </AssociationSet>
+          <AssociationSet Name="fk_iduser" Association="Self.fk_iduser">
+            <End Role="NguoiDung" EntitySet="NguoiDung" />
+            <End Role="SHOP" EntitySet="SHOP" />
+          </AssociationSet>
           <AssociationSet Name="fk_spid" Association="Self.fk_spid">
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="ChiTietDonHang" EntitySet="ChiTietDonHang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_username" Association="Self.FK_username">
+            <End Role="NguoiDung" EntitySet="NguoiDung" />
+            <End Role="DonHang" EntitySet="DonHang" />
           </AssociationSet>
           <AssociationSet Name="fl_iddh" Association="Self.fl_iddh">
             <End Role="DonHang" EntitySet="DonHang" />
@@ -433,19 +425,19 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDND" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="TinhTrang" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Phiship" Type="Int32" />
           <Property Name="TongTien" Type="Int32" />
           <NavigationProperty Name="ChiTietDonHang" Relationship="Self.fl_iddh" FromRole="DonHang" ToRole="ChiTietDonHang" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_idnd" FromRole="DonHang" ToRole="NguoiDung" />
+          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_username" FromRole="DonHang" ToRole="NguoiDung" />
         </EntityType>
         <EntityType Name="GioHang">
           <Key>
             <PropertyRef Name="IDGH" />
           </Key>
           <Property Name="IDGH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="IDSP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="SoLuong" Type="Int32" />
           <NavigationProperty Name="NguoiDung" Relationship="Self.FK_id" FromRole="GioHang" ToRole="NguoiDung" />
@@ -462,19 +454,17 @@
         </EntityType>
         <EntityType Name="NguoiDung">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="Username" />
           </Key>
-          <Property Name="ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="HoTen" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SDT" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="matKhau" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
           <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ImgND" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="IDShop" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DonHang" Relationship="Self.FK_idnd" FromRole="NguoiDung" ToRole="DonHang" />
+          <NavigationProperty Name="DonHang" Relationship="Self.FK_username" FromRole="NguoiDung" ToRole="DonHang" />
           <NavigationProperty Name="GioHang" Relationship="Self.FK_id" FromRole="NguoiDung" ToRole="GioHang" />
-          <NavigationProperty Name="SHOP" Relationship="Self.FK_IDSH" FromRole="NguoiDung" ToRole="SHOP" />
+          <NavigationProperty Name="SHOP" Relationship="Self.fk_iduser" FromRole="NguoiDung" ToRole="SHOP" />
         </EntityType>
         <EntityType Name="SanPham">
           <Key>
@@ -501,11 +491,12 @@
             <PropertyRef Name="IDShop" />
           </Key>
           <Property Name="IDShop" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="tenShop" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ImgShop" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DonDatHang" Relationship="Self.FK_idshop" FromRole="SHOP" ToRole="DonDatHang" />
-          <NavigationProperty Name="NguoiDung" Relationship="Self.FK_IDSH" FromRole="SHOP" ToRole="NguoiDung" />
+          <NavigationProperty Name="NguoiDung" Relationship="Self.fk_iduser" FromRole="SHOP" ToRole="NguoiDung" />
           <NavigationProperty Name="SanPham" Relationship="Self.FK_idspshop" FromRole="SHOP" ToRole="SanPham" />
         </EntityType>
         <Association Name="FK_IDdondat">
@@ -580,15 +571,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_idnd">
+        <Association Name="FK_username">
           <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
           <End Role="DonHang" Type="Self.DonHang" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="Username" />
             </Principal>
             <Dependent Role="DonHang">
-              <PropertyRef Name="IDND" />
+              <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -597,10 +588,10 @@
           <End Role="GioHang" Type="Self.GioHang" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NguoiDung">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="Username" />
             </Principal>
             <Dependent Role="GioHang">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -628,15 +619,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_IDSH">
-          <End Role="SHOP" Type="Self.SHOP" Multiplicity="0..1" />
-          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="*" />
+        <Association Name="fk_iduser">
+          <End Role="NguoiDung" Type="Self.NguoiDung" Multiplicity="0..1" />
+          <End Role="SHOP" Type="Self.SHOP" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SHOP">
-              <PropertyRef Name="IDShop" />
+            <Principal Role="NguoiDung">
+              <PropertyRef Name="Username" />
             </Principal>
-            <Dependent Role="NguoiDung">
-              <PropertyRef Name="IDShop" />
+            <Dependent Role="SHOP">
+              <PropertyRef Name="Username" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -688,7 +679,7 @@
             <End Role="SHOP" EntitySet="SHOP" />
             <End Role="DonDatHang" EntitySet="DonDatHang" />
           </AssociationSet>
-          <AssociationSet Name="FK_idnd" Association="Self.FK_idnd">
+          <AssociationSet Name="FK_username" Association="Self.FK_username">
             <End Role="NguoiDung" EntitySet="NguoiDung" />
             <End Role="DonHang" EntitySet="DonHang" />
           </AssociationSet>
@@ -704,9 +695,9 @@
             <End Role="SanPham" EntitySet="SanPham" />
             <End Role="HinhAnh" EntitySet="HinhAnh" />
           </AssociationSet>
-          <AssociationSet Name="FK_IDSH" Association="Self.FK_IDSH">
-            <End Role="SHOP" EntitySet="SHOP" />
+          <AssociationSet Name="fk_iduser" Association="Self.fk_iduser">
             <End Role="NguoiDung" EntitySet="NguoiDung" />
+            <End Role="SHOP" EntitySet="SHOP" />
           </AssociationSet>
           <AssociationSet Name="FK_idspshop" Association="Self.FK_idspshop">
             <End Role="SHOP" EntitySet="SHOP" />
@@ -718,10 +709,11 @@
             <Parameter Name="moTa" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="AddNguoiDung">
-            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="username" Mode="In" Type="String" />
             <Parameter Name="hoTen" Mode="In" Type="String" />
             <Parameter Name="sdt" Mode="In" Type="String" />
             <Parameter Name="pass" Mode="In" Type="String" />
+            <Parameter Name="diachi" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="addSanPham">
             <Parameter Name="tenSP" Mode="In" Type="String" />
@@ -732,13 +724,10 @@
             <Parameter Name="img" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="AddShop">
+            <Parameter Name="username" Mode="In" Type="String" />
             <Parameter Name="ten" Mode="In" Type="String" />
             <Parameter Name="diachi" Mode="In" Type="String" />
             <Parameter Name="img" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="addShopforUser">
-            <Parameter Name="idND" Mode="In" Type="String" />
-            <Parameter Name="idshop" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="danhGiaSP">
             <Parameter Name="danhgia" Mode="In" Type="Int32" />
@@ -746,10 +735,6 @@
           </FunctionImport>
           <FunctionImport Name="GetSPbyDanhMuc" ReturnType="Collection(FastFoodAppModel.GetSPbyDanhMuc_Result)">
             <Parameter Name="maDM" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="updateDiaChiND">
-            <Parameter Name="id" Mode="In" Type="String" />
-            <Parameter Name="diachi" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="updateImgNguoiDung">
             <Parameter Name="id" Mode="In" Type="String" />
@@ -831,7 +816,7 @@
             <EntityTypeMapping TypeName="FastFoodAppModel.DonHang">
               <MappingFragment StoreEntitySet="DonHang">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="IDND" ColumnName="IDND" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
                 <ScalarProperty Name="Phiship" ColumnName="Phiship" />
                 <ScalarProperty Name="TongTien" ColumnName="TongTien" />
@@ -842,7 +827,7 @@
             <EntityTypeMapping TypeName="FastFoodAppModel.GioHang">
               <MappingFragment StoreEntitySet="GioHang">
                 <ScalarProperty Name="IDGH" ColumnName="IDGH" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="IDSP" ColumnName="IDSP" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
               </MappingFragment>
@@ -860,14 +845,12 @@
           <EntitySetMapping Name="NguoiDung">
             <EntityTypeMapping TypeName="FastFoodAppModel.NguoiDung">
               <MappingFragment StoreEntitySet="NguoiDung">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="HoTen" ColumnName="HoTen" />
                 <ScalarProperty Name="SDT" ColumnName="SDT" />
                 <ScalarProperty Name="matKhau" ColumnName="matKhau" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
                 <ScalarProperty Name="ImgND" ColumnName="ImgND" />
-                <ScalarProperty Name="IDShop" ColumnName="IDShop" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -890,6 +873,7 @@
             <EntityTypeMapping TypeName="FastFoodAppModel.SHOP">
               <MappingFragment StoreEntitySet="SHOP">
                 <ScalarProperty Name="IDShop" ColumnName="IDShop" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="tenShop" ColumnName="tenShop" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
                 <ScalarProperty Name="ImgShop" ColumnName="ImgShop" />
@@ -900,7 +884,6 @@
           <FunctionImportMapping FunctionImportName="AddNguoiDung" FunctionName="FastFoodAppModel.Store.AddNguoiDung" />
           <FunctionImportMapping FunctionImportName="addSanPham" FunctionName="FastFoodAppModel.Store.addSanPham" />
           <FunctionImportMapping FunctionImportName="AddShop" FunctionName="FastFoodAppModel.Store.AddShop" />
-          <FunctionImportMapping FunctionImportName="addShopforUser" FunctionName="FastFoodAppModel.Store.addShopforUser" />
           <FunctionImportMapping FunctionImportName="danhGiaSP" FunctionName="FastFoodAppModel.Store.danhGiaSP" />
           <FunctionImportMapping FunctionImportName="GetSPbyDanhMuc" FunctionName="FastFoodAppModel.Store.GetSPbyDanhMuc">
             <ResultMapping>
@@ -916,7 +899,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="updateDiaChiND" FunctionName="FastFoodAppModel.Store.updateDiaChiND" />
           <FunctionImportMapping FunctionImportName="updateImgNguoiDung" FunctionName="FastFoodAppModel.Store.updateImgNguoiDung" />
           <FunctionImportMapping FunctionImportName="updateImgSHOP" FunctionName="FastFoodAppModel.Store.updateImgSHOP" />
         </EntityContainerMapping>
